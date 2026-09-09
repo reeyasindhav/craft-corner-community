@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useAuth, initials } from "@/lib/auth";
+import { Toaster } from "@/components/Toaster";
 
 const nav = [
   { to: "/explore", label: "Explore" },
@@ -19,65 +20,81 @@ export function Logo() {
   );
 }
 
-export function SiteShell({ children }: { children: ReactNode }) {
+export function SiteShell({
+  children,
+  showFooter = true,
+  showHeader = true,
+}: {
+  children: ReactNode;
+  showFooter?: boolean;
+  showHeader?: boolean;
+}) {
   const { user } = useAuth();
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
-        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 sm:flex sm:justify-between">
-          <Logo />
-          <nav className="hidden items-center gap-7 text-sm sm:flex">
+      {showHeader && (
+        <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
+          <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 sm:flex sm:justify-between">
+            <Logo />
+            <nav className="hidden items-center gap-7 text-sm sm:flex">
+              {nav.map((n) => (
+                <Link
+                  key={n.to}
+                  to={n.to}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                  activeProps={{ className: "text-foreground font-medium" }}
+                >
+                  {n.label}
+                </Link>
+              ))}
+            </nav>
+            <div className="flex items-center gap-2">
+              {user ? (
+                <Link
+                  to="/dashboard"
+                  className="flex items-center gap-2 rounded-full border border-border bg-card px-2 py-1.5 pr-3 text-sm transition-colors hover:bg-muted"
+                >
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-clay text-xs font-medium text-clay-foreground">
+                    {initials(user.name)}
+                  </span>
+                  <span className="hidden sm:inline">Dashboard</span>
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="hidden rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline-block"
+                  >
+                    Log in
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-transform hover:scale-[1.03]"
+                  >
+                    Join free
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+          <nav className="flex gap-5 overflow-x-auto border-t border-border/70 px-5 py-2 text-sm sm:hidden">
             {nav.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
-                className="text-muted-foreground transition-colors hover:text-foreground"
+                className="whitespace-nowrap text-muted-foreground transition-colors"
                 activeProps={{ className: "text-foreground font-medium" }}
               >
                 {n.label}
               </Link>
             ))}
           </nav>
-          <div className="flex items-center gap-2">
-            {user ? (
-              <Link
-                to="/dashboard"
-                className="flex items-center gap-2 rounded-full border border-border bg-card px-2 py-1.5 pr-3 text-sm transition-colors hover:bg-muted"
-              >
-                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-clay text-xs font-medium text-clay-foreground">
-                  {initials(user.name)}
-                </span>
-                <span className="hidden sm:inline">Dashboard</span>
-              </Link>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="hidden rounded-full px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground sm:inline-block"
-                >
-                  Log in
-                </Link>
-                <Link
-                  to="/signup"
-                  className="rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-transform hover:scale-[1.03]"
-                >
-                  Join free
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-        <nav className="flex gap-5 overflow-x-auto border-t border-border/70 px-5 py-2 text-sm sm:hidden">
-          {nav.map((n) => (
-            <Link key={n.to} to={n.to} className="whitespace-nowrap text-muted-foreground">
-              {n.label}
-            </Link>
-          ))}
-        </nav>
-      </header>
+        </header>
+      )}
       <main>{children}</main>
-      <SiteFooter />
+      {showFooter && <SiteFooter />}
+      <Toaster />
     </div>
   );
 }
@@ -93,11 +110,11 @@ export function SiteFooter() {
           </p>
         </div>
         <FooterCol
-          title="Make"
+          title="Support"
           links={[
-            { to: "/explore", label: "Explore tutorials" },
-            { to: "/materials", label: "Materials shop" },
-            { to: "/saved", label: "Saved tutorials" },
+            { to: "/contact", label: "Contact us" },
+            { to: "/about", label: "About" },
+            { to: "/faq", label: "FAQ" },
           ]}
         />
         <FooterCol
@@ -109,10 +126,10 @@ export function SiteFooter() {
           ]}
         />
         <FooterCol
-          title="Account"
+          title="Legal"
           links={[
-            { to: "/login", label: "Log in" },
-            { to: "/signup", label: "Create account" },
+            { to: "/privacy", label: "Privacy policy" },
+            { to: "/terms", label: "Terms of service" },
           ]}
         />
       </div>
@@ -124,20 +141,17 @@ export function SiteFooter() {
   );
 }
 
-function FooterCol({
-  title,
-  links,
-}: {
-  title: string;
-  links: { to: string; label: string }[];
-}) {
+function FooterCol({ title, links }: { title: string; links: { to: string; label: string }[] }) {
   return (
     <div>
       <p className="eyebrow">{title}</p>
       <ul className="mt-3 space-y-2 text-sm">
         {links.map((l) => (
           <li key={l.label}>
-            <Link to={l.to} className="text-muted-foreground transition-colors hover:text-foreground">
+            <Link
+              to={l.to}
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
               {l.label}
             </Link>
           </li>

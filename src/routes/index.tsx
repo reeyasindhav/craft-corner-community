@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Sparkles, ShoppingBasket, Heart } from "lucide-react";
+import { ArrowRight, Palette, ShoppingBasket, Heart } from "lucide-react";
 import { SiteShell } from "@/components/SiteShell";
 import { TutorialCard } from "@/components/TutorialCard";
 import { tutorials, communityProjects, categories } from "@/lib/data";
@@ -69,7 +69,7 @@ function Landing() {
           </div>
 
           <div className="relative rise" style={{ animationDelay: "120ms" }}>
-            <Sparkles className="floaty absolute -left-4 -top-4 z-10 h-8 w-8 text-sage-foreground/60" />
+            <Palette className="floaty absolute -left-4 -top-4 z-10 h-8 w-8 text-sage-foreground/60" />
             <div className="grid grid-cols-2 gap-4">
               <img
                 src={tutorials[0].image}
@@ -128,7 +128,7 @@ function Landing() {
         <div className="grid gap-6 md:grid-cols-3">
           {[
             {
-              icon: Sparkles,
+              icon: Palette,
               title: "Structured steps",
               body: "Every tutorial is broken into timed steps with difficulty badges — no scrubbing through videos.",
             },
@@ -143,7 +143,11 @@ function Landing() {
               body: "Share finished projects, ask questions, and get gentle feedback from makers like you.",
             },
           ].map((f, i) => (
-            <div key={f.title} className="card-soft fade-up p-7" style={{ animationDelay: `${i * 90}ms` }}>
+            <div
+              key={f.title}
+              className="card-soft fade-up p-7"
+              style={{ animationDelay: `${i * 90}ms` }}
+            >
               <span className="grid h-11 w-11 place-items-center rounded-2xl bg-clay text-clay-foreground">
                 <f.icon className="h-5 w-5" />
               </span>
@@ -160,7 +164,10 @@ function Landing() {
             <p className="eyebrow">From the craftroom</p>
             <h2 className="mt-1 text-3xl">What's trending in the community</h2>
           </div>
-          <Link to="/community" className="group inline-flex items-center gap-2 text-sm text-primary">
+          <Link
+            to="/community"
+            className="group inline-flex items-center gap-2 text-sm text-primary"
+          >
             View community
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>

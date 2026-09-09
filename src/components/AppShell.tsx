@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import {
   Home,
   Compass,
@@ -10,7 +10,19 @@ import {
   LogOut,
   Bell,
   Search,
+  Palette,
 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { useAuth, initials } from "@/lib/auth";
 import { Logo } from "@/components/SiteShell";
 
@@ -23,17 +35,25 @@ const main = [
 
 const space = [
   { to: "/saved", label: "Saved tutorials", icon: Bookmark },
-  { to: "/materials", label: "Materials list", icon: ShoppingBasket },
+  { to: "/my-cart", label: "My cart", icon: ShoppingBasket },
+  { to: "/profile", label: "Profile", icon: Palette },
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { user, ready, signOut } = useAuth();
   const navigate = useNavigate();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     if (ready && !user) navigate({ to: "/login" });
   }, [ready, user, navigate]);
+
+  const search = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!query.trim()) return;
+    navigate({ to: "/explore", search: { q: query.trim() } });
+  };
 
   if (!ready || !user) {
     return (
@@ -81,23 +101,44 @@ export function AppShell({ children }: { children: ReactNode }) {
             </p>
           </div>
           <div className="flex items-center gap-3 rounded-2xl border border-border bg-card px-3 py-2.5">
-            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-clay text-xs font-medium text-clay-foreground">
-              {initials(user.name)}
-            </span>
+            <Link to="/profile" className="shrink-0">
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-clay text-xs font-medium text-clay-foreground transition-colors hover:opacity-80">
+                {initials(user.name)}
+              </span>
+            </Link>
             <div className="min-w-0">
               <p className="truncate text-sm font-medium capitalize">{user.name}</p>
               <p className="truncate text-xs text-muted-foreground">Maker since 2022</p>
             </div>
-            <button
-              onClick={() => {
-                signOut();
-                navigate({ to: "/" });
-              }}
-              aria-label="Sign out"
-              className="ml-auto text-muted-foreground transition-colors hover:text-primary"
-            >
-              <LogOut className="h-4 w-4" />
-            </button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <button
+                  aria-label="Sign out"
+                  className="ml-auto text-muted-foreground transition-colors hover:text-primary"
+                >
+                  <LogOut className="h-4 w-4" />
+                </button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Sign out?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    You&apos;ll need to sign in again to access your account and cart.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={() => {
+                      signOut();
+                      navigate({ to: "/" });
+                    }}
+                  >
+                    Sign out
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </div>
       </aside>
@@ -108,20 +149,35 @@ export function AppShell({ children }: { children: ReactNode }) {
             <div className="flex min-w-0 items-center gap-3 lg:hidden">
               <Logo />
             </div>
-            <div className="hidden min-w-0 flex-1 items-center justify-center gap-2 text-sm text-muted-foreground sm:flex">
+            <form
+              onSubmit={search}
+              className="hidden min-w-0 flex-1 items-center justify-center gap-2 text-sm text-muted-foreground sm:flex"
+            >
               <Search className="h-4 w-4 shrink-0" />
-              <span className="truncate">Search tutorials, materials, makers…</span>
-            </div>
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search tutorials, materials, makers…"
+                className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+              />
+            </form>
             <div className="flex items-center gap-3">
               <Bell className="h-5 w-5 shrink-0 text-muted-foreground" />
-              <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-clay text-xs font-medium text-clay-foreground">
-                {initials(user.name)}
-              </span>
+              <Link to="/profile" className="shrink-0">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-clay text-xs font-medium text-clay-foreground transition-colors hover:opacity-80">
+                  {initials(user.name)}
+                </span>
+              </Link>
             </div>
           </div>
           <nav className="flex gap-4 overflow-x-auto border-t border-border/70 px-5 py-2 text-sm lg:hidden">
             {[...main, ...space].map((n) => (
-              <Link key={n.to} to={n.to} className="whitespace-nowrap text-muted-foreground">
+              <Link
+                key={n.to}
+                to={n.to}
+                className="whitespace-nowrap text-muted-foreground transition-colors"
+                activeProps={{ className: "text-foreground font-medium" }}
+              >
                 {n.label}
               </Link>
             ))}

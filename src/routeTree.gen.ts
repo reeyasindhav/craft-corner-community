@@ -10,7 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as MaterialsRouteImport } from './routes/materials'
+import { Route as MyCartRouteImport } from './routes/my-cart'
+import { Route as MyProjectsRouteImport } from './routes/my-projects'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SavedRouteImport } from './routes/saved'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as CommunityIndexRouteImport } from './routes/community.index'
+import { Route as CommunityIdRouteImport } from './routes/community.$id'
 import { Route as TutorialsSlugRouteImport } from './routes/tutorials.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,10 +35,95 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreRoute = ExploreRouteImport.update({
   id: '/explore',
   path: '/explore',
   getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaterialsRoute = MaterialsRouteImport.update({
+  id: '/materials',
+  path: '/materials',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyCartRoute = MyCartRouteImport.update({
+  id: '/my-cart',
+  path: '/my-cart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyProjectsRoute = MyProjectsRouteImport.update({
+  id: '/my-projects',
+  path: '/my-projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityIndexRoute = CommunityIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CommunityRoute,
+} as any)
+const CommunityIdRoute = CommunityIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => CommunityRoute,
 } as any)
 const TutorialsSlugRoute = TutorialsSlugRouteImport.update({
   id: '/tutorials/$slug',
@@ -31,31 +133,156 @@ const TutorialsSlugRoute = TutorialsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/checkout': typeof CheckoutRoute
+  '/community': typeof CommunityRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
+  '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
+  '/materials': typeof MaterialsRoute
+  '/my-cart': typeof MyCartRoute
+  '/my-projects': typeof MyProjectsRoute
+  '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
+  '/community/$id': typeof CommunityIdRoute
   '/tutorials/$slug': typeof TutorialsSlugRoute
+  '/community/': typeof CommunityIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/checkout': typeof CheckoutRoute
+  '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
+  '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
+  '/materials': typeof MaterialsRoute
+  '/my-cart': typeof MyCartRoute
+  '/my-projects': typeof MyProjectsRoute
+  '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
+  '/community/$id': typeof CommunityIdRoute
   '/tutorials/$slug': typeof TutorialsSlugRoute
+  '/community': typeof CommunityIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/checkout': typeof CheckoutRoute
+  '/community': typeof CommunityRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
   '/explore': typeof ExploreRoute
+  '/faq': typeof FaqRoute
+  '/login': typeof LoginRoute
+  '/materials': typeof MaterialsRoute
+  '/my-cart': typeof MyCartRoute
+  '/my-projects': typeof MyProjectsRoute
+  '/privacy': typeof PrivacyRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
+  '/community/$id': typeof CommunityIdRoute
   '/tutorials/$slug': typeof TutorialsSlugRoute
+  '/community/': typeof CommunityIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/explore' | '/tutorials/$slug'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/checkout'
+    | '/community'
+    | '/contact'
+    | '/dashboard'
+    | '/explore'
+    | '/faq'
+    | '/login'
+    | '/materials'
+    | '/my-cart'
+    | '/my-projects'
+    | '/privacy'
+    | '/profile'
+    | '/saved'
+    | '/signup'
+    | '/terms'
+    | '/community/$id'
+    | '/tutorials/$slug'
+    | '/community/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explore' | '/tutorials/$slug'
-  id: '__root__' | '/' | '/explore' | '/tutorials/$slug'
+  to:
+    | '/'
+    | '/about'
+    | '/checkout'
+    | '/contact'
+    | '/dashboard'
+    | '/explore'
+    | '/faq'
+    | '/login'
+    | '/materials'
+    | '/my-cart'
+    | '/my-projects'
+    | '/privacy'
+    | '/profile'
+    | '/saved'
+    | '/signup'
+    | '/terms'
+    | '/community/$id'
+    | '/tutorials/$slug'
+    | '/community'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/checkout'
+    | '/community'
+    | '/contact'
+    | '/dashboard'
+    | '/explore'
+    | '/faq'
+    | '/login'
+    | '/materials'
+    | '/my-cart'
+    | '/my-projects'
+    | '/privacy'
+    | '/profile'
+    | '/saved'
+    | '/signup'
+    | '/terms'
+    | '/community/$id'
+    | '/tutorials/$slug'
+    | '/community/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  CheckoutRoute: typeof CheckoutRoute
+  CommunityRoute: typeof CommunityRouteWithChildren
+  ContactRoute: typeof ContactRoute
+  DashboardRoute: typeof DashboardRoute
   ExploreRoute: typeof ExploreRoute
+  FaqRoute: typeof FaqRoute
+  LoginRoute: typeof LoginRoute
+  MaterialsRoute: typeof MaterialsRoute
+  MyCartRoute: typeof MyCartRoute
+  MyProjectsRoute: typeof MyProjectsRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ProfileRoute: typeof ProfileRoute
+  SavedRoute: typeof SavedRoute
+  SignupRoute: typeof SignupRoute
+  TermsRoute: typeof TermsRoute
   TutorialsSlugRoute: typeof TutorialsSlugRoute
 }
 
@@ -68,12 +295,131 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore': {
       id: '/explore'
       path: '/explore'
       fullPath: '/explore'
       preLoaderRoute: typeof ExploreRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/materials': {
+      id: '/materials'
+      path: '/materials'
+      fullPath: '/materials'
+      preLoaderRoute: typeof MaterialsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-cart': {
+      id: '/my-cart'
+      path: '/my-cart'
+      fullPath: '/my-cart'
+      preLoaderRoute: typeof MyCartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-projects': {
+      id: '/my-projects'
+      path: '/my-projects'
+      fullPath: '/my-projects'
+      preLoaderRoute: typeof MyProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community/': {
+      id: '/community/'
+      path: '/'
+      fullPath: '/community/'
+      preLoaderRoute: typeof CommunityIndexRouteImport
+      parentRoute: typeof CommunityRoute
+    }
+    '/community/$id': {
+      id: '/community/$id'
+      path: '/$id'
+      fullPath: '/community/$id'
+      preLoaderRoute: typeof CommunityIdRouteImport
+      parentRoute: typeof CommunityRoute
     }
     '/tutorials/$slug': {
       id: '/tutorials/$slug'
@@ -85,9 +431,38 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface CommunityRouteChildren {
+  CommunityIdRoute: typeof CommunityIdRoute
+  CommunityIndexRoute: typeof CommunityIndexRoute
+}
+
+const CommunityRouteChildren: CommunityRouteChildren = {
+  CommunityIdRoute: CommunityIdRoute,
+  CommunityIndexRoute: CommunityIndexRoute,
+}
+
+const CommunityRouteWithChildren = CommunityRoute._addFileChildren(
+  CommunityRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  CheckoutRoute: CheckoutRoute,
+  CommunityRoute: CommunityRouteWithChildren,
+  ContactRoute: ContactRoute,
+  DashboardRoute: DashboardRoute,
   ExploreRoute: ExploreRoute,
+  FaqRoute: FaqRoute,
+  LoginRoute: LoginRoute,
+  MaterialsRoute: MaterialsRoute,
+  MyCartRoute: MyCartRoute,
+  MyProjectsRoute: MyProjectsRoute,
+  PrivacyRoute: PrivacyRoute,
+  ProfileRoute: ProfileRoute,
+  SavedRoute: SavedRoute,
+  SignupRoute: SignupRoute,
+  TermsRoute: TermsRoute,
   TutorialsSlugRoute: TutorialsSlugRoute,
 }
 export const routeTree = rootRouteImport

@@ -126,7 +126,9 @@ function TutorialPage() {
                           </p>
                         )}
                       </div>
-                      <span className="shrink-0 text-xs text-muted-foreground">{s.minutes} min</span>
+                      <span className="shrink-0 text-xs text-muted-foreground">
+                        {s.minutes} min
+                      </span>
                     </div>
                   </li>
                 );

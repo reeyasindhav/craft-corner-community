@@ -2,7 +2,7 @@
 
 Craftroom- DIY & Handcraft Tutorial Platform
 
-Please create a full design for this website. Make sure to have design-focused pages. make sure to use and iterate on the given images to create ui, 
+Please create a full design for this website. Make sure to have design-focused pages. make sure to use and iterate on the given images to create ui,
 The final site should be production-ready with functional implementation.
 It should include 8 to 10 pages, including login and signup pages and authenticated pages like the dashboard. The focus should be on design while maintaining all mockup data
 . Add animations to the site, and include a simple user flow in your response.

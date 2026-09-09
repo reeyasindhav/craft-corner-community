@@ -6,6 +6,9 @@ import { TutorialCard } from "@/components/TutorialCard";
 import { categories, tutorials, type Difficulty } from "@/lib/data";
 
 export const Route = createFileRoute("/explore")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    q: (search.q as string) || "",
+  }),
   head: () => ({
     meta: [
       { title: "Explore craft tutorials — Craftroom" },
@@ -24,7 +27,8 @@ export const Route = createFileRoute("/explore")({
 const levels: Difficulty[] = ["Beginner", "Easy", "Intermediate", "Advanced"];
 
 function Explore() {
-  const [query, setQuery] = useState("");
+  const { q } = Route.useSearch();
+  const [query, setQuery] = useState(q);
   const [category, setCategory] = useState<string | null>(null);
   const [level, setLevel] = useState<Difficulty | null>(null);
 
